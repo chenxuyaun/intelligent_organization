@@ -560,3 +560,9 @@
 - 启动 Docker Desktop（本机开发工具，非项目服务），引擎就绪（server 29.1.3）；逐项只读盘点与手册记录一致（1 停止容器 Exited(0)、镜像 385MB、专用卷/网络各 1，卷创建于 2026-11-19）。
 - 删除：容器 `io-product-smoke-7b542528-app-1`、卷 `io-product-smoke-7b542528_product-data`、网络 `io-product-smoke-7b542528_default`、镜像 `intelligent-organization-product:build-check`（释放 385MB）；四类残留复验为空（提交 `e134ffb` 更新手册记录）。
 - 演练遗留物至此全部清零；唯一剩余决定项 = 仓库内 `output/preview-product-onboarding/tenant-isolation-app` 副本去留（用户决定，删除会产生新提交且历史保留）。提交链现 8 条。
+
+## 2026-11-20：演练副本删除 + 远程推送 GitHub（用户逐项批准）
+
+- `output/preview-product-onboarding` 演练副本经用户批准删除（`git rm -r` + 提交 `86dc289`）：磁盘复核不存在、索引残留 0；`output/imagegen/` 等其他内容未动。演练遗留清单至此**全部清零**。
+- Docker Desktop 优雅退出（`docker desktop stop`，引擎停止响应核验，进程随后退出）——为清理遗留临时启动，用后即退。
+- 远程推送：先误配 `shpey/intelligent_organization`（403 denied to chenxuyaun ×4，协作者邀请路径排除），经用户更正为本人仓库 `chenxuyaun/intelligent_organization` 后 `remote set-url` 重推——**master 全部 10 条提交推送成功并建立跟踪**（新远程分支）。本地 `baseline-p1-p5` 标签未随推（需要时补 `git push origin baseline-p1-p5`）。提交链现 10 条，工作区干净。
