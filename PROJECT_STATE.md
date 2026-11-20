@@ -536,3 +536,9 @@
 - 根 `README.md`：scripts/ 清单补齐（smoke 42 / acceptance 14 / perf 11）+「验证与运维脚本纪律」块；「当前限制」补检索实测包络（>1k 卡超阈值，5k≈28s、10k≈110s → ADR-007）。
 - `research/architecture/README.md`：状态行更新为最终口径（P1–P5、42/0 + 14/0 + 11/0）；决策表 D-3/D-5 保留历史「决策时 39/0」原文并补「后扩至 42/0」指向，消除误读。
 - 最终扫描：「待实施」0 处残留；`04-data-and-api.md` L375 的 39/0 为带日期历史证据，保留。全库当前口径唯一：P1–P5 全部完成【本机已验证】，P6 用户主导、P7 推迟（D-7），AI 侧无待办。
+
+## 2026-11-20：建立 git 版本控制基线（用户确认后执行）
+
+- `git init` + 首次提交 `9861994`（188 个文件：架构设计包 ①–⑨、验证脚本、server/public 代码、deploy 文档、research 全量、PROJECT_STATE）；随后 `d236880` 将 ACL 修复工具的本机备份产物（`research/operations/acl-recovery/`）加入忽略。
+- 安全核验：`.env`、`data/`（真实库）、`node_modules/` 均未进入暂存区；`deploy/product.env.example` 逐行确认只含占位符与仓库外密钥文件路径（`*_FILE`），无真实凭证入库。
+- 全程只做初始化与提交，未改动任何业务文件；运行服务与真实数据照旧未触碰。此后 P6 的配置与代码变更可回退。
