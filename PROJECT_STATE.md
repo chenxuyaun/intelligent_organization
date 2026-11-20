@@ -566,3 +566,11 @@
 - `output/preview-product-onboarding` 演练副本经用户批准删除（`git rm -r` + 提交 `86dc289`）：磁盘复核不存在、索引残留 0；`output/imagegen/` 等其他内容未动。演练遗留清单至此**全部清零**。
 - Docker Desktop 优雅退出（`docker desktop stop`，引擎停止响应核验，进程随后退出）——为清理遗留临时启动，用后即退。
 - 远程推送：先误配 `shpey/intelligent_organization`（403 denied to chenxuyaun ×4，协作者邀请路径排除），经用户更正为本人仓库 `chenxuyaun/intelligent_organization` 后 `remote set-url` 重推——**master 全部 10 条提交推送成功并建立跟踪**（新远程分支）。本地 `baseline-p1-p5` 标签未随推（需要时补 `git push origin baseline-p1-p5`）。提交链现 10 条，工作区干净。
+
+## 2026-11-20：开源化收尾（标签上云 + LICENSE + 全库公开合规审计）
+
+- 用户确认项目为**有意开源**，撤销此前"建议转私有"选项；仓库保持 Public。
+- `baseline-p1-p5` 标签推送远程（`ls-remote` 核验 `9861994^{}` 解引用正确）——基线本地+远端双留存。
+- 发现并补齐开源合规缺口：仓库根无 LICENSE（保留所有权利状态）→ 新增 **MIT LICENSE**（`2b14a3a`，版权人 chenxuyaun，2026）。
+- **全库公开合规审计（七组目录全过，纯只读）**：根文档诚实边界 ✅；①–⑨ 验证等级声明 ✅；operations 手册演练边界 ✅；observations 14 文件——205 处虚构/模拟标注、零 PII/路径/凭证（「真实工单」字样均指实验口径非真实数据；人名陈朋/林可为模拟审核角色）✅；.workbuddy 隐私 ✅；.design 截图（演示模式标注、无密钥值）✅；LICENSE/代码/deploy ✅。
+- 提交链终态 **13 条**（`9861994`…`2b14a3a`），本地=origin/master 零偏离（fetch 核验）；工作区干净。剩余可选：Apache-2.0 替换、实例启动只读复查、P6 试点。
