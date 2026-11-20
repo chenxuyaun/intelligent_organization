@@ -554,3 +554,9 @@
 - P6 手册缺口补全（`f409f4f`）：`product-first-team-onboarding.md` 追加「2026-11-20 实施更新」节——验收观察项补入 P1–P5 五个新能力（工单类型/父子工单、三态有效性标注、缓存复用与延迟拆分、429/409 可靠性行为、备份新鲜度告警）；原 11-19 验收表通过条件不变。MVP_PLAN.md 复核为规划文档，无需同步。
 - 演练遗留清理（用户批准）：删除 2026-11-19 演练遗留的三个临时目录（`io-product-ops-drill-dvzUbi`、`io-product-tenant-isolation`、`io-container-smoke-f56ccb4882`——均为虚构测试材料：测试库、临时应用副本、自签证书/假密钥/测试 env），精确字面路径 + 前缀防护，逐目录复验。清理记录入手册（`b4ac110`）。
 - 剩余两项如实待办：Docker 遗留（停止态容器 + 专用卷/网络 + `build-check` 镜像，实测守护进程未运行，待用户启动 Docker Desktop 后清理）；`output/preview-product-onboarding/tenant-isolation-app` 副本去留（版本控制内容，独立决定）。提交链现 6 条，工作区干净。
+
+## 2026-11-20：Docker 演练遗留清理（用户批准方案延续，AI 启动 Docker Desktop）
+
+- 启动 Docker Desktop（本机开发工具，非项目服务），引擎就绪（server 29.1.3）；逐项只读盘点与手册记录一致（1 停止容器 Exited(0)、镜像 385MB、专用卷/网络各 1，卷创建于 2026-11-19）。
+- 删除：容器 `io-product-smoke-7b542528-app-1`、卷 `io-product-smoke-7b542528_product-data`、网络 `io-product-smoke-7b542528_default`、镜像 `intelligent-organization-product:build-check`（释放 385MB）；四类残留复验为空（提交 `e134ffb` 更新手册记录）。
+- 演练遗留物至此全部清零；唯一剩余决定项 = 仓库内 `output/preview-product-onboarding/tenant-isolation-app` 副本去留（用户决定，删除会产生新提交且历史保留）。提交链现 8 条。
