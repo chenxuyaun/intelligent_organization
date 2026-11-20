@@ -574,3 +574,7 @@
 - 发现并补齐开源合规缺口：仓库根无 LICENSE（保留所有权利状态）→ 新增 **MIT LICENSE**（`2b14a3a`，版权人 chenxuyaun，2026）。
 - **全库公开合规审计（七组目录全过，纯只读）**：根文档诚实边界 ✅；①–⑨ 验证等级声明 ✅；operations 手册演练边界 ✅；observations 14 文件——205 处虚构/模拟标注、零 PII/路径/凭证（「真实工单」字样均指实验口径非真实数据；人名陈朋/林可为模拟审核角色）✅；.workbuddy 隐私 ✅；.design 截图（演示模式标注、无密钥值）✅；LICENSE/代码/deploy ✅。
 - 提交链终态 **13 条**（`9861994`…`2b14a3a`），本地=origin/master 零偏离（fetch 核验）；工作区干净。剩余可选：Apache-2.0 替换、实例启动只读复查、P6 试点。
+- 日志补记上云（`1ddaf74`）后追加两项**匿名公网只读核验**（未登录状态，仓库此前从未验证过公开可见性）：
+  - `https://github.com/chenxuyaun/intelligent_organization` 匿名 HTTP 200，页面含 "Sign in … logged out" 头——**仓库公开可见确认**（推送成功≠公开可见，此项此前是假设，现为实测事实）。
+  - `https://raw.githubusercontent.com/.../master/LICENSE` 匿名 HTTP 200，正文完整返回 MIT 全文（Copyright (c) 2026 chenxuyaun）——**许可证公开链路可读确认**。
+  - 结论：开源化收尾全链路（本地→远程→公网→许可证）闭环，无遗留缺口。
