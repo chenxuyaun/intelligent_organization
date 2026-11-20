@@ -138,6 +138,7 @@
 
 - 经用户批准，删除了 2026-11-19 演练遗留的三个临时目录（均为虚构测试材料：测试库、临时应用副本、自签证书/私钥、假模型密钥、测试 env）：`%TEMP%\io-product-ops-drill-dvzUbi`、`%TEMP%\io-product-tenant-isolation`、`%TEMP%\io-container-smoke-f56ccb4882`。删除按精确字面路径执行并带路径前缀防护，逐目录复验不存在。
 - 仍未清理（如实记录）：① 停止态容器 `io-product-smoke-7b542528-app-1`、其专用 Docker 卷/网络与镜像 `intelligent-organization-product:build-check`——实测 Docker 守护进程未运行，待 Docker Desktop 启动后核验并清理；② 仓库内 `output/preview-product-onboarding/tenant-isolation-app` 演练副本——属版本控制内容，删除是独立决定，未在本轮处理。两项均不含真实业务数据或真实凭证。
+- **2026-11-20 Docker 遗留已清理（用户批准的清理方案延续）：** 启动 Docker Desktop 后引擎就绪（server 29.1.3），逐项核验与手册记录一致（1 停止容器 Exited(0)、镜像 385MB、专用卷/网络各 1，卷创建于 2026-11-19）后删除：容器、卷 `io-product-smoke-7b542528_product-data`、网络 `io-product-smoke-7b542528_default`、镜像 `intelligent-organization-product:build-check`。复验四类残留均为空。**演练遗留至此仅剩仓库内 `output/` 副本的去留一项待用户决定。**
 
 ## 6. 失败与回退
 
