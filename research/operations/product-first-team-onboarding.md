@@ -134,6 +134,11 @@
 - 创建只存在于临时 Docker network 的合成 HTTPS OIDC Discovery issuer，证书由本机临时 CA 自签并通过 `NODE_EXTRA_CA_CERTS` 验证。使用空 Compose 项目和合成 env/key 启动 product 容器；健康检查变为 healthy，`GET /api/ready` 返回 `ready=true`、`mode=product`、数据库 `ok`、模型配置 `configured`。没有登录、创建工单或调用模型；模型 base URL 指向无效测试域名。关闭后经 Compose maintenance 容器只读核验 `integrity_check=ok`、工单数 0、`app.lock` 已释放。
 - 本地演练不等于目标 Linux 主机、真实 OIDC 提供方或反向代理验收，也没有在容器中运行正式备份/恢复命令。清理本次测试的 Docker Compose 项目和临时文件时命令被本机策略拒绝，未拆分命令绕过；模拟 issuer 已停止并因 `--rm` 移除。停止态容器 `io-product-smoke-7b542528-app-1`、专用 Docker 数据卷/网络仍在，临时测试目录 `C:\Users\yuesh\AppData\Local\Temp\io-container-smoke-f56ccb4882` 中保留合成证书/私钥、假模型 key、测试环境文件和空备份目录；镜像 `intelligent-organization-product:build-check` 留存。未包含真实业务数据或真实凭据。
 
+### 2026-11-20 临时产物清理记录
+
+- 经用户批准，删除了 2026-11-19 演练遗留的三个临时目录（均为虚构测试材料：测试库、临时应用副本、自签证书/私钥、假模型密钥、测试 env）：`%TEMP%\io-product-ops-drill-dvzUbi`、`%TEMP%\io-product-tenant-isolation`、`%TEMP%\io-container-smoke-f56ccb4882`。删除按精确字面路径执行并带路径前缀防护，逐目录复验不存在。
+- 仍未清理（如实记录）：① 停止态容器 `io-product-smoke-7b542528-app-1`、其专用 Docker 卷/网络与镜像 `intelligent-organization-product:build-check`——实测 Docker 守护进程未运行，待 Docker Desktop 启动后核验并清理；② 仓库内 `output/preview-product-onboarding/tenant-isolation-app` 演练副本——属版本控制内容，删除是独立决定，未在本轮处理。两项均不含真实业务数据或真实凭证。
+
 ## 6. 失败与回退
 
 - 登录失败：暂停成员录入和任务处理；核对 issuer、回调地址、客户端类型、邮箱大小写和 `email_verified`。不要临时关闭验证或放开自助注册。
