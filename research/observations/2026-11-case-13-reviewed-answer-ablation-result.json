@@ -1,0 +1,145 @@
+{
+  "experiment": "Does C12 human-approved answer text change the exact synthetic ticket #13 answer?",
+  "createdAt": "2026-11-19T02:52:04.515Z",
+  "storage": "GET-only app reads + in-memory createRun stub; no application-data writes",
+  "model": "deepseek-flash",
+  "promptVersion": "support-agent-v4.0-matched",
+  "sourceCase": {
+    "ticketId": 12,
+    "runId": 18,
+    "status": "resolved",
+    "decision": "adopt",
+    "source": "human",
+    "reviewer": "陈朋"
+  },
+  "targetTicket": {
+    "ticketId": 13,
+    "status": "open",
+    "runId": 20
+  },
+  "controls": "Same #13 question, model, prompt and C12/K3/K2/C9 sources. Only C12 snippet changes: current question/status text vs that text plus the human-adopted R18 answer, explicitly labeled as reference-only. Two repetitions per condition, order reversed in the second pair.",
+  "approvedAnswer": "结论：组织 API 请求被拒，按公开规则更像是该 classic PAT 在目标组织处不符合当前生效的生命周期策略，并不等于 token 已被撤销或停用 [K3][K2]。组织 owner 设置的最大有效期不能越过企业级上限；若该企业上限确为 45 天，则组织侧 120 天不能作为可越过的有效上限，实际适用哪一层需以管理员核实为准 [K3]。个人仓库仍可访问，与“仅阻止访问该组织”的规则不矛盾，但不能据此证明组织侧合规 [K3][K2]。期限不是只在创建时检查：企业级说明为使用 token 或尝试 SSO 授权时检查；组织级说明为用户在调用组织 API 被拒时发现不合规 [K3]。不需要提供 token 明文；在管理员确认策略层级前，不要仅凭页面到期日判断 token 状态。",
+  "results": [
+    {
+      "condition": "current_case_snippet",
+      "origin": "live",
+      "model": "deepseek-flash",
+      "latencyMs": 29840,
+      "retrievedRefs": [
+        "C12",
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [
+        "K3",
+        "K2"
+      ],
+      "reply": "按题述，企业级 classic PAT 最长有效期 30 天，组织设置的 90 天不能越过企业级上限，因此该 60 天 token 对组织访问适用 30 天上限，组织访问不合规 [K3]。个人仓库仍能访问、组织私有仓库/API 被拒，本身只说明该 token 被策略阻止访问该组织，不能据此认定 token 已撤销或停用；设置策略本身不会撤销或停用 token [K3][K2]。企业级策略下，期限会在使用 token 或尝试 SSO 授权时检查 [K3]。具体恢复方式需由管理员按当前策略确认，不能直接断言必须重新生成。请勿在工单中粘贴 token 明文。",
+      "uncertainties": [
+        "问题单未给出具体拒绝提示或错误类别，无法确认拒绝是否明确指向 PAT 生命周期策略，还是还混有其他权限或 SSO 因素。",
+        "尚未由管理员确认该组织当前确实受企业级 PAT 策略管理及其生效范围。",
+        "token 当前是否仍有效、是否已过期或仅被组织访问策略阻止，需按非识别性状态核实。"
+      ],
+      "modelHttp": {
+        "status": 200,
+        "ok": true,
+        "model": "deepseek-flash",
+        "choiceCount": 1,
+        "finishReason": "stop",
+        "contentLength": 1572
+      }
+    },
+    {
+      "condition": "case_plus_approved_answer",
+      "origin": "live",
+      "model": "deepseek-flash",
+      "latencyMs": 23443,
+      "retrievedRefs": [
+        "C12",
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [
+        "K3",
+        "K2"
+      ],
+      "reply": "在该组织确受该 GitHub Enterprise Cloud 企业策略管理的前提下，企业级 30 天上限优先：组织 owner 可以设置 classic PAT 最大有效期，但不能越过企业级上限，因此组织级 90 天不能作为可越过 30 天的有效上限，60 天 token 超过企业上限时会被阻止访问该组织 [K3]。组织私有仓库/API 被拒，按公开规则更像是该 token 在目标组织处不符合当前生效的生命周期策略，并不等于 token 已被撤销或停用；设置策略本身不会撤销或停用 token，个人仓库仍可访问也与“仅阻止访问该组织”不矛盾，但不能据此证明组织侧合规 [K3][K2]。企业级策略下，期限会在使用 token 或尝试 SSO 授权时检查 [K3]。最终适用层级和 token 状态仍需管理员按只读信息核实，不应仅凭页面到期日下结论。",
+      "uncertainties": [
+        "该组织是否确实受所述 GitHub Enterprise Cloud 企业策略管理、实际生效的企业/组织期限层级，需管理员只读核实；上下文未提供管理员确认。",
+        "组织 API 被拒的具体错误类型未给出，无法排除 SSO 授权或其他权限因素。",
+        "token 当前是否仍在列表中及最近使用时间未提供，无法核实其当前状态；但拒绝本身不证明已撤销。"
+      ],
+      "modelHttp": {
+        "status": 200,
+        "ok": true,
+        "model": "deepseek-flash",
+        "choiceCount": 1,
+        "finishReason": "stop",
+        "contentLength": 1830
+      }
+    },
+    {
+      "condition": "case_plus_approved_answer_2",
+      "origin": "live",
+      "model": "deepseek-flash",
+      "latencyMs": 35294,
+      "retrievedRefs": [
+        "C12",
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [
+        "K3",
+        "K2"
+      ],
+      "reply": "按上下文中的 GitHub 公开规则演练：组织 owner 设置的 classic PAT 最大有效期不能越过企业级上限，因此组织侧 90 天不能覆盖企业侧 30 天；若该组织确实受该企业策略管理，60 天 classic PAT 在访问该组织时可能因生命周期超过有效上限而被阻止。[K3] 组织 API 请求被拒并不等于 token 已被撤销或停用；设置策略本身不会撤销或停用 token，个人仓库仍可访问也不矛盾，不能据此证明组织侧合规。[K2][K3] 期限并非只在创建时检查：企业级说明为使用 token 或尝试 SSO 授权时检查；组织级说明为用户在调用组织 API 被拒时发现不合规。[K3]",
+      "uncertainties": [
+        "目标组织是否确实受该 GitHub Enterprise Cloud 企业级 classic PAT 最大期限策略管理，以及企业 30 天/组织 90 天的实际生效层级，需管理员核实；上下文为模拟样本，不能替代实际配置确认。",
+        "被拒错误是否明确指向生命周期/最大有效期策略，而不是其他组织权限、SSO 授权或仓库访问权限问题，尚未确认。",
+        "该 token 的类型、所有者/成员关系及当前列表状态尚未核实，会影响“是否属于该策略阻止”的判断。"
+      ],
+      "modelHttp": {
+        "status": 200,
+        "ok": true,
+        "model": "deepseek-flash",
+        "choiceCount": 1,
+        "finishReason": "stop",
+        "contentLength": 1874
+      }
+    },
+    {
+      "condition": "current_case_snippet_2",
+      "origin": "live",
+      "model": "deepseek-flash",
+      "latencyMs": 12076,
+      "retrievedRefs": [
+        "C12",
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [
+        "K3",
+        "K2"
+      ],
+      "reply": "判断如下（虚构公开规则演练，依据 GitHub 公开规则）：\n1）适用期限以企业级上限为准。组织 owner 可以设置 classic PAT 最大有效期，但不能越过企业级上限 [K3]，因此当企业上限为 30 天、组织配置为 90 天时，实际生效上限是 30 天；你创建的 60 天 token 超过该上限，属于不合规，会被阻止访问该组织 [K3][K2]。\n2）个人仓库仍能访问，与上述结论不矛盾：被阻止的是对目标组织的访问，个人仓库访问不受该组织策略约束，所以个人仓库成功并不能说明 token 合规。\n3）组织请求被拒不等于 token 已被撤销或停用。设置策略本身不会撤销或停用 token [K3][K2]；在企业级策略下，期限是在使用 token 或尝试 SSO 授权时检查的 [K3]。因此被拒只说明该 token 在访问该组织时被判定不合规。\n4）恢复访问请按组织或企业管理员给出的指引处理；GitHub 相关页面未规定唯一恢复步骤，本工单不对具体操作方式下结论 [K2]。\n5）请勿在本工单中粘贴 token 明文 [K3]，后续核查请按 general_checks 中的只读方式提供状态信息。",
+      "uncertainties": [
+        "目标组织是否确实受 GitHub Enterprise Cloud 企业级策略管理尚未确认；若不受企业策略约束，则结论需按组织级配置重新判断 [K3]。",
+        "被拒时的具体错误提示内容未知，无法确认其是否即为企业级期限策略提示，也无法排除同时存在其他权限或 SSO 授权问题。",
+        "企业级与组织级的当前配置值来自问题单描述，未经管理员核实，实际生效上限需以管理员确认为准。",
+        "本次引用均为 GitHub 公开规则类操作指引与相似案例，不代表公司内部制度；若涉及内部账号与凭证管理制度，需另行向制度归口方核实。"
+      ],
+      "modelHttp": {
+        "status": 200,
+        "ok": true,
+        "model": "deepseek-flash",
+        "choiceCount": 1,
+        "finishReason": "stop",
+        "contentLength": 2346
+      }
+    }
+  ]
+}

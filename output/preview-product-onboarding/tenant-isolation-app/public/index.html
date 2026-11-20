@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>组织智能工作台</title>
+<meta name="description" content="让团队与 AI 围绕任务协作、审核共享经验，并从实际结果中持续学习。" />
+<link rel="stylesheet" href="/styles.css" />
+<link rel="stylesheet" href="/vendor/remixicon/remixicon.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23161922'/%3E%3Cpath d='M9 21V11h3.2v7h6.6v3H9Z' fill='%23fff'/%3E%3Ccircle cx='22' cy='12' r='2.4' fill='%232e5fe5'/%3E%3C/svg%3E" />
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="rail-top">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><i class="ri-team-line" style="font-size:18px"></i></span>
+        <div>
+          <div class="brand-name" id="brand-name">组织智能实验台</div>
+          <div class="brand-sub" id="brand-sub">单组织 · 单智能体</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="rail-nav" aria-label="主导航">
+      <a class="nav-item" href="#/" data-nav="home">
+        <i class="ri-inbox-line" aria-hidden="true"></i>
+        <span>工作台</span><span class="nav-count" data-count="open">–</span>
+      </a>
+      <a class="nav-item" href="#/batch" data-nav="batch">
+        <i class="ri-clipboard-line" aria-hidden="true"></i>
+        <span>观察批次</span>
+      </a>
+      <a class="nav-item" href="#/pilot" data-nav="pilot">
+        <i class="ri-route-line" aria-hidden="true"></i>
+        <span>试点闭环</span>
+      </a>
+      <a class="nav-item" href="#/memory" data-nav="memory">
+        <i class="ri-database-2-line" aria-hidden="true"></i>
+        <span>组织记忆</span><span class="nav-count" data-count="pending">–</span>
+      </a>
+      <a class="nav-item" href="#/activity" data-nav="activity">
+        <i class="ri-pulse-line" aria-hidden="true"></i>
+        <span>事件</span>
+      </a>
+      <a class="nav-item" href="#/settings" data-nav="settings">
+        <i class="ri-settings-3-line" aria-hidden="true"></i>
+        <span>设置</span>
+      </a>
+    </nav>
+
+    <div class="rail-foot">
+      <div class="model-chip" id="model-chip">
+        <strong><span class="dot demo"></span>模型状态</strong>
+        <span class="muted">正在读取配置…</span>
+      </div>
+      <div id="auth-user-box" class="auth-user-box" hidden>
+        <div class="small" id="auth-user-name"></div>
+        <div class="small muted" id="auth-user-role"></div>
+        <button class="btn btn-sm" id="auth-logout" type="button" style="margin-top:8px;width:100%">退出团队账号</button>
+      </div>
+      <p class="small muted" id="rail-data-note" style="padding-left:8px">演示数据全部虚构，仅用于走通流程。</p>
+    </div>
+  </aside>
+
+  <main class="main" id="view">
+    <header class="page-head">
+      <div>
+        <p class="page-context">示例团队 · IT 支持组</p>
+        <h1>工作台</h1>
+        <p class="lead">同一张问题单、同一个模型、同一个智能体角色。唯一变量是：它能不能读取团队已批准的经验。</p>
+      </div>
+    </header>
+    <div class="strip" aria-label="队列概览">
+      <div class="strip-cell"><div class="strip-label">待处理</div><div class="strip-value num">–</div></div>
+      <div class="strip-cell"><div class="strip-label">处理中</div><div class="strip-value num">–</div></div>
+      <div class="strip-cell"><div class="strip-label">已解决</div><div class="strip-value num">–</div></div>
+      <div class="strip-cell"><div class="strip-label">知识复用</div><div class="strip-value num">–</div></div>
+    </div>
+    <div class="section">
+      <div class="empty">
+        <h2>正在载入问题队列</h2>
+        <p>如果你的浏览器禁用了脚本，这个工作台无法运行。请允许 JavaScript 后刷新页面。</p>
+        <a class="btn" href="/">重新载入</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="/app.js"></script>
+</body>
+</html>

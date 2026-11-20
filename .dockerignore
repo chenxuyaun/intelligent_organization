@@ -1,0 +1,11 @@
+.git
+.codex
+.workbuddy
+node_modules
+data
+output
+research
+*.log
+.env
+.env.*
+deploy/*.env

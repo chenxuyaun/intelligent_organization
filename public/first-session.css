@@ -1,0 +1,20 @@
+.first-session-page { max-width: 980px; margin: 0 auto; }
+.first-session-page .page-head { align-items: flex-start; }
+.first-session-boundary { margin-top: var(--space-6); }
+.worksheet-lines { display: grid; gap: var(--space-3); margin: var(--space-5) 0; }
+.worksheet-lines > div { display: grid; grid-template-columns: minmax(220px, 0.8fr) minmax(180px, 1.2fr); gap: var(--space-4); align-items: end; }
+.worksheet-lines span { min-height: 28px; border-bottom: 1px solid var(--border-strong); }
+.first-session-table { min-width: 640px; }
+.first-session-table td { min-width: 150px; height: 44px; }
+.first-session-footer { margin: var(--space-8) 0; color: var(--muted); font-size: var(--fs-small); }
+.first-session-footer a { color: var(--accent); }
+@media (max-width: 640px) {
+  .worksheet-lines > div { grid-template-columns: 1fr; gap: var(--space-1); }
+}
+@media print {
+  body { background: #fff; }
+  .first-session-page { max-width: none; padding: 0; }
+  .first-session-actions, .first-session-footer a { display: none; }
+  .first-session-page .panel { break-inside: avoid; box-shadow: none; }
+  .first-session-boundary { break-inside: avoid; }
+}

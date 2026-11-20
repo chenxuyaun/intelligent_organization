@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K3 v3 · 企业级 PAT 策略</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; color: #17212b; background: #f3f5f7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 32px 18px; }
+    main { max-width: 920px; margin: 0 auto; }
+    header, section { background: #fff; border: 1px solid #d7dde3; border-radius: 12px; margin-bottom: 16px; padding: 24px; }
+    h1 { margin: 0 0 8px; font-size: 26px; }
+    h2 { margin: 0 0 16px; font-size: 19px; }
+    h3 { margin: 20px 0 8px; font-size: 16px; }
+    p { line-height: 1.7; margin: 8px 0; }
+    .subtle { color: #536272; }
+    .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+    .badge { border: 1px solid #aab7c3; border-radius: 999px; padding: 5px 10px; font-size: 13px; }
+    .badge.green { color: #145a32; border-color: #8ab99b; background: #f0f8f2; }
+    .badge.amber { color: #744b00; border-color: #d7b55e; background: #fff8e6; }
+    .notice { border-left: 4px solid #c28a00; background: #fff8e6; padding: 12px 14px; margin-top: 18px; line-height: 1.6; }
+    dl { display: grid; grid-template-columns: 150px 1fr; gap: 10px 16px; margin: 0; }
+    dt { color: #536272; }
+    dd { margin: 0; }
+    ul { line-height: 1.75; padding-left: 22px; }
+    a { color: #0759a5; overflow-wrap: anywhere; }
+    .sources li { margin: 8px 0; }
+    .result { border: 1px solid #b7c9d8; background: #f5f9fc; padding: 14px; border-radius: 8px; }
+    .result strong { color: #123c60; }
+    footer { color: #536272; font-size: 13px; padding: 8px 4px; }
+    @media (max-width: 600px) { body { padding: 14px 10px; } header, section { padding: 18px; } dl { grid-template-columns: 1fr; gap: 4px; } dd { margin-bottom: 10px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="subtle">4186 隔离样本 · 知识卡片</p>
+      <h1>K3 · GitHub classic PAT 默认过期与组织上限</h1>
+      <div class="badges">
+        <span class="badge green">已发布 · v3</span>
+        <span class="badge">sample 模拟数据</span>
+        <span class="badge amber">未批准用于真实试点</span>
+      </div>
+      <div class="notice">以下内容总结 GitHub 的公开规则，不代表任何公司内部制度。页面展示的是 4186 隔离数据库里的模拟知识卡。</div>
+    </header>
+
+    <section>
+      <h2>卡片信息</h2>
+      <dl>
+        <dt>卡片编号</dt><dd>K3（ID 3）</dd>
+        <dt>版本</dt><dd>v3；原 v2 正文保存在修订事件和更新前备份中</dd>
+        <dt>来源类型</dt><dd>guide · 公开操作指引</dd>
+        <dt>适用范围</dt><dd>GitHub.com classic personal access tokens；分别核实组织级与 GitHub Enterprise Cloud 企业级最大生命周期策略。fine-grained PAT 仅作为类型边界对照。</dd>
+        <dt>审核记录</dt><dd>陈朋 · 发布 · 2026-11-18</dd>
+        <dt>真实试点</dt><dd>未批准；pilot_approved = 0</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>知识正文</h2>
+      <p>适用范围：GitHub.com personal access tokens (classic) 的公开规则。实际处理还要看目标组织是否受企业级策略管理。</p>
+
+      <h3>classic PAT 默认过期</h3>
+      <p>GitHub 组织 PAT 政策文档说明，classic PAT 没有必须设置过期时间的要求；创建者仍可为单张 token 选择过期日期。因此“没有强制过期要求”不等于“每张 token 都永不过期”。</p>
+
+      <h3>组织级最大期限</h3>
+      <p>组织 owner 可以为 classic PAT 设置最大有效期，但不能越过企业级上限。如果 token 属于该组织成员且生命周期超过当前组织上限，它会被阻止访问该组织；设置策略本身不会撤销或停用 token。组织级说明说，用户会在调用组织 API 被拒时发现不合规，但没有把某一种恢复步骤规定为所有组织都相同。应核实策略层级、token 类型、所有者/成员关系与具体错误，不要只凭页面显示的到期日下结论。</p>
+
+      <h3>企业级策略补充</h3>
+      <p>GitHub Enterprise Cloud 的企业政策文档对 classic PAT 另有执行细节：期限会在使用 token 或尝试 SSO 授权时检查；错误会提示用户调整期限，超限时会提示生成符合期限要求的新 token。这是企业级策略说明，不应直接套用到仅由组织配置的策略。先确认该组织是否受企业策略及上级限制。</p>
+
+      <h3>类型边界与未使用清理</h3>
+      <p>组织/企业资源下 fine-grained PAT 的默认最大有效期为 366 天；这条规则不适用于 classic PAT。个人 PAT 文档中“expires_in 未提供时默认 30 天”的说明位于 fine-grained PAT URL 模板章节，不能据此推断 classic PAT 的默认期限。</p>
+      <p>GitHub 会因 personal access token 一年未使用而自动撤销/移除它。这是按最近使用时间触发的清理，不等同于 classic PAT 的强制过期要求，也不等同于组织阻止该 token 访问组织。页面仍显示未来的过期日，不足以证明 token 仍存在或仍能访问组织；遇到久未使用的 token，应查看其当前状态与最近使用时间，并让组织 owner 核实当前策略。不要在缺少具体错误信息时断言它一定已被清理或一定需要重新生成。</p>
+      <p><strong>不要在工单中粘贴 token 明文。</strong></p>
+    </section>
+
+    <section>
+      <h2>来源</h2>
+      <ul class="sources">
+        <li><a href="https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization">GitHub 组织级 PAT 政策</a></li>
+        <li><a href="https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-personal-access-tokens-in-your-enterprise">GitHub Enterprise Cloud 企业级 PAT 政策</a></li>
+        <li><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">GitHub 个人 PAT 管理</a></li>
+        <li><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/token-expiration-and-revocation">GitHub token 过期与撤销</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>更新后的检索验证</h2>
+      <div class="result">
+        <p><strong>检索位置：</strong>K3 排名第 1，score 45.46，元数据版本为 3。</p>
+        <p><strong>命中片段：</strong>包含企业上限不能由组织放宽，以及 classic PAT 在使用或尝试 SSO 授权时检查的新增段落。</p>
+        <p><strong>验证范围：</strong>只读数据库检索；没有调用模型，也没有新增工单或运行。</p>
+      </div>
+    </section>
+
+    <footer>此静态预览对应 4186 sample 数据库中的 K3 v3。在线服务当前未运行，因此本页不是应用 UI 截图。</footer>
+  </main>
+</body>
+</html>

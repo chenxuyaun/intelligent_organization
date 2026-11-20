@@ -1,0 +1,260 @@
+{
+  "experiment": "Transfer to new fine-grained PAT lifetime values (enterprise 45 days, organization 120 days)",
+  "database": "C:\\Users\\yuesh\\AppData\\Local\\Temp\\io-retrieval-preview-20261118-150508\\app.db",
+  "storage": "read-only SQLite; candidate K1 text injected in memory; createRun stub; no application data written",
+  "model": "deepseek-flash",
+  "promptVersion": "support-agent-v4.0-matched",
+  "candidateSnippet": "**组织/企业资源：** 组织和企业的 fine-grained PAT 默认最大有效期为 366 天。企业 owner 可以设置最大期限；企业旗下组织可以进一步收紧，但不能超过企业上限，也不能取消企业要求的过期策略。若企业上限为 60 天、组织设置为 90 天，组织的 90 天不能放宽企业上限；创建面向该组织资源的 token 时，应选择不超过实际生效上限的期限。GitHub 文档说明，fine-grained PAT 的目标组织在创建时已知，并要求 token 的创建期限不超过策略上限。\n\n**类型边界：** GitHub 对 classic PAT 的企业期限规则另有说明：期限在使用 token 或尝试 SSO 授权时检查。不要把这个 classic PAT 检查时点套给 fine-grained PAT。fine-grained PAT 应依据目标组织、企业上限及其创建时的策略校验来判断；如需讨论已有 token，再单独区分策略变更后的访问拦截与 token 本身是否被撤销。",
+  "trials": [
+    {
+      "condition": "current-k1-v2",
+      "trial": 1,
+      "origin": "live",
+      "latencyMs": 35787,
+      "retrieved": [
+        {
+          "ref": "K1",
+          "version": 2,
+          "score": 38.18
+        },
+        {
+          "ref": "K3",
+          "version": 3,
+          "score": 36.79
+        },
+        {
+          "ref": "C7",
+          "score": 25.25
+        },
+        {
+          "ref": "C9",
+          "score": 22.85
+        }
+      ],
+      "citedRefs": [
+        "K1",
+        "K3"
+      ],
+      "citations": [
+        {
+          "ref": "K1",
+          "type": "card",
+          "id": 1,
+          "title": "GitHub fine-grained PAT 过期规则：个人与组织资源",
+          "quote": "组织或企业资源：默认最大有效期为 366 天；管理员可以放宽或收紧策略。策略可能在创建、重新生成或使用 token 时生效。"
+        },
+        {
+          "ref": "K1",
+          "type": "card",
+          "id": 1,
+          "title": "GitHub fine-grained PAT 过期规则：个人与组织资源",
+          "quote": "具体组织或企业是否允许无过期，以其当前 PAT lifetime policy 为准。"
+        },
+        {
+          "ref": "K3",
+          "type": "card",
+          "id": 3,
+          "title": "GitHub classic PAT 默认过期与组织上限",
+          "quote": "组织 owner 可以为 classic PAT 设置最大有效期，但不能越过企业级上限。"
+        },
+        {
+          "ref": "K3",
+          "type": "card",
+          "id": 3,
+          "title": "GitHub classic PAT 默认过期与组织上限",
+          "quote": "如果 token 属于该组织成员且生命周期超过当前组织上限，它会被阻止访问该组织；设置策略本身不会撤销或停用 token。"
+        }
+      ],
+      "answer": "按你给的虚构上限，面向该组织创建 fine-grained PAT 不应选 120 天：组织设置 120 天高于企业上限 45 天，合规上应取更严格的 45 天，创建时选择不超过 45 天的有效期。fine-grained PAT 对组织/企业资源默认最大有效期为 366 天，管理员可以收紧，策略可能在创建、重新生成或使用 token 时生效，具体以当前 PAT lifetime policy 为准 [K1]。组织级最大期限不能越过企业级上限；超限 token 会被阻止访问该组织，设置策略本身不会撤销或停用 token（K3 对 classic PAT 明确此层级，fine-grained 的具体层级以当前 PAT lifetime policy 为准）[K3]。以上是公开规则说明和虚构情境，不代表某公司现行制度。",
+      "generalChecks": [
+        "只读核实目标组织/企业当前生效的 PAT lifetime policy 层级与适用范围，确认 45 天企业上限是否覆盖该组织资源。",
+        "确认待创建 token 类型为 fine-grained 且资源归属为该组织/企业，避免混用 classic PAT 的组织上限规则。"
+      ],
+      "uncertainties": [
+        "题设为虚构且企业 45 天与组织 120 天相互冲突；无法从上下文确认该企业/组织当前实际 PAT lifetime policy 及其生效层级。",
+        "K3 关于“组织上限不能越过企业级上限”的明确表述针对 classic PAT；fine-grained PAT 的同一层级关系在 K1 中未逐字写明，需人工核实。",
+        "若创建页面仍允许选择 120 天，需核实 token 是否确属该企业/组织资源以及策略生效时点，不应仅凭页面显示判断合规。"
+      ]
+    },
+    {
+      "condition": "current-k1-v2",
+      "trial": 2,
+      "origin": "live",
+      "latencyMs": 27569,
+      "retrieved": [
+        {
+          "ref": "K1",
+          "version": 2,
+          "score": 38.18
+        },
+        {
+          "ref": "K3",
+          "version": 3,
+          "score": 36.79
+        },
+        {
+          "ref": "C7",
+          "score": 25.25
+        },
+        {
+          "ref": "C9",
+          "score": 22.85
+        }
+      ],
+      "citedRefs": [
+        "K1",
+        "K3"
+      ],
+      "citations": [
+        {
+          "ref": "K1",
+          "type": "card",
+          "id": 1,
+          "title": "GitHub fine-grained PAT 过期规则：个人与组织资源",
+          "quote": "组织或企业资源：默认最大有效期为 366 天；管理员可以放宽或收紧策略。策略可能在创建、重新生成或使用 token 时生效。"
+        },
+        {
+          "ref": "K3",
+          "type": "card",
+          "id": 3,
+          "title": "GitHub classic PAT 默认过期与组织上限",
+          "quote": "组织 owner 可以为 classic PAT 设置最大有效期，但不能越过企业级上限。如果 token 属于该组织成员且生命周期超过当前组织上限，它会被阻止访问该组织；设置策略本身不会撤销或停用 token。"
+        }
+      ],
+      "answer": "在你给出的虚构情境中，企业上限 45 天比组织设置 120 天更严格，因此面向该组织创建的 PAT 不应选择 120 天，应按 45 天上限处理。规则上，组织/企业资源的 fine-grained PAT 默认最大有效期为 366 天，管理员可以放宽或收紧，且策略可能在创建、重新生成或使用 token 时生效[K1]。组织级最大期限不能越过企业级上限；超过组织上限的 token 会被阻止访问该组织，设置策略本身不会撤销或停用 token[K3]（K3 这段层级说明明确针对 classic PAT，fine-grained PAT 的精确优先级不在该段文字中）。所以 120 天不是可安全选择的期限，除非确认企业 45 天策略不适用于该 fine-grained PAT。",
+      "generalChecks": [
+        "确认目标组织/企业当前 PAT lifetime policy 是否明确覆盖 fine-grained PAT，以及企业 45 天上限是否对目标组织生效。",
+        "在不提交、不创建凭证的前提下查看创建页允许的最长过期选项，确认是否最多为 45 天。"
+      ],
+      "uncertainties": [
+        "给定资料没有明确写出 fine-grained PAT 的企业级上限是否必然覆盖组织级设置；K3 的层级说明明确针对 classic PAT，需人工核实目标组织/企业当前 fine-grained PAT lifetime policy。",
+        "若企业 45 天策略只覆盖 classic PAT 而不覆盖 fine-grained PAT，则 120 天是否可选会改变。"
+      ]
+    },
+    {
+      "condition": "candidate-k1-v3",
+      "trial": 1,
+      "origin": "live",
+      "latencyMs": 35228,
+      "retrieved": [
+        {
+          "ref": "K1",
+          "version": 3,
+          "score": 38.18
+        },
+        {
+          "ref": "K3",
+          "version": 3,
+          "score": 36.79
+        },
+        {
+          "ref": "C7",
+          "score": 25.25
+        },
+        {
+          "ref": "C9",
+          "score": 22.85
+        }
+      ],
+      "citedRefs": [
+        "K1"
+      ],
+      "citations": [
+        {
+          "ref": "K1",
+          "type": "card",
+          "id": 1,
+          "title": "GitHub fine-grained PAT 过期规则：个人与组织资源",
+          "quote": "组织和企业的 fine-grained PAT 默认最大有效期为 366 天。企业 owner 可以设置最大期限；企业旗下组织可以进一步收紧，但不能超过企业上限，也不能取消企业要求的过期策略。若企业上限为 60 天、组织设置为 90 天，组织的 90 天不能放宽企业上限；创建面向该组织资源的 token 时，应选择不超过实际生效上限的期限。GitHub 文档说明，fine-grained PAT 的目标组织在创建时已知，并要求 token 的创建期限不超过策略上限。"
+        }
+      ],
+      "answer": "按你给的虚构条件，不能选 120 天。GitHub fine-grained PAT 对组织/企业资源的默认最大有效期为 366 天，但企业 owner 可以设置最大期限；组织只能进一步收紧，不能超过或放宽企业上限。[K1] 因此即使组织设置为 120 天，也不能放宽 45 天的企业上限；实际生效上限为 45 天，创建面向该组织资源的 fine-grained PAT 时应选择不超过 45 天的期限，而不是 120 天。[K1] 注意 45/120 是题设虚构数值，本答复只说明规则关系，不代表任何真实公司制度。",
+      "generalChecks": [],
+      "uncertainties": [
+        "企业上限 45 天、组织设置 120 天均为题设虚构值，不能据此推断任何真实企业或组织的实际策略。"
+      ]
+    },
+    {
+      "condition": "candidate-k1-v3",
+      "trial": 2,
+      "origin": "live",
+      "latencyMs": 22806,
+      "retrieved": [
+        {
+          "ref": "K1",
+          "version": 3,
+          "score": 38.18
+        },
+        {
+          "ref": "K3",
+          "version": 3,
+          "score": 36.79
+        },
+        {
+          "ref": "C7",
+          "score": 25.25
+        },
+        {
+          "ref": "C9",
+          "score": 22.85
+        }
+      ],
+      "citedRefs": [
+        "K1"
+      ],
+      "citations": [
+        {
+          "ref": "K1",
+          "type": "card",
+          "id": 1,
+          "title": "GitHub fine-grained PAT 过期规则：个人与组织资源",
+          "quote": "企业 owner 可以设置最大期限；企业旗下组织可以进一步收紧，但不能超过企业上限，也不能取消企业要求的过期策略。"
+        },
+        {
+          "ref": "K1",
+          "type": "card",
+          "id": 1,
+          "title": "GitHub fine-grained PAT 过期规则：个人与组织资源",
+          "quote": "若企业上限为 60 天、组织设置为 90 天，组织的 90 天不能放宽企业上限；创建面向该组织资源的 token 时，应选择不超过实际生效上限的期限。"
+        },
+        {
+          "ref": "K1",
+          "type": "card",
+          "id": 1,
+          "title": "GitHub fine-grained PAT 过期规则：个人与组织资源",
+          "quote": "组织和企业的 fine-grained PAT 默认最大有效期为 366 天。"
+        }
+      ],
+      "answer": "以下仅按 GitHub 公开规则解释该虚构情境，不视为真实公司制度。根据已发布操作指引，组织和企业资源的 fine-grained PAT 默认最大有效期为366天，但企业 owner 可以设置更短的最大期限，组织只能进一步收紧、不能超过企业上限，也不能取消企业要求的过期策略。[K1] 因此企业上限为45天时，组织设置的120天不能放宽企业上限；创建面向该组织资源的 token 时应选择不超过实际生效上限的期限，即不能选120天，应不超过45天。[K1]",
+      "generalChecks": [
+        "核实该组织是否确实受所述企业策略管理，以及企业/组织实际生效的最大期限（只读查看策略层级）。",
+        "在创建 fine-grained PAT 页面只读核对可选期限是否被限制在45天以内；不要提交创建或提供凭证信息。"
+      ],
+      "uncertainties": [
+        "“企业上限45天、组织设置120天”是虚构情境，不能据此推断真实企业或组织当前策略。",
+        "实际企业/组织策略层级和值需人工核实；若该组织不受所述企业策略管理，结论可能不同。",
+        "创建 fine-grained PAT 时页面实际可选期限及策略校验结果需人工只读核对。"
+      ]
+    }
+  ],
+  "countsBefore": {
+    "tickets": 10,
+    "runs": 14,
+    "reviews": 4,
+    "knowledge_cards": 4,
+    "knowledge_uses": 20
+  },
+  "countsAfter": {
+    "tickets": 10,
+    "runs": 14,
+    "reviews": 4,
+    "knowledge_cards": 4,
+    "knowledge_uses": 20
+  },
+  "scoringQuestions": [
+    "是否将示例中的 60/90 正确迁移到新数值：企业 45 天、组织 120 天",
+    "是否结论为组织 120 天不能超过企业 45 天",
+    "是否清楚说明 fine-grained PAT 创建期限不超过实际企业/组织上限",
+    "是否谨慎区分虚构参数与真实组织配置，不索要凭证明文"
+  ]
+}

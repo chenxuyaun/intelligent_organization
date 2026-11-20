@@ -1,0 +1,77 @@
+services:
+  app:
+    image: intelligent-organization-product:${IMAGE_TAG:-local}
+    build:
+      context: .
+    restart: unless-stopped
+    init: true
+    env_file:
+      - ${PRODUCT_ENV_FILE:?Set PRODUCT_ENV_FILE in the deployment env file}
+    environment:
+      APP_MODE: product
+      HOST: 0.0.0.0
+      PORT: "4173"
+      DATA_DIR: ${DATA_DIR:-/var/lib/org-intelligence/current}
+      OIDC_CLIENT_SECRET_FILE: /run/secrets/oidc-client-secret
+      MODEL_API_KEY_FILE: /run/secrets/model-api-key
+    secrets:
+      - oidc-client-secret
+      - model-api-key
+    ports:
+      - "127.0.0.1:${HOST_PORT:-4173}:4173"
+    volumes:
+      - product-data:/var/lib/org-intelligence
+      - type: bind
+        source: ${BACKUP_DIR:?Set BACKUP_DIR to an existing protected host directory}
+        target: /var/backups/org-intelligence
+        bind:
+          create_host_path: false
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+    stop_grace_period: 30s
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:4173/api/ready').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+
+  maintenance:
+    image: intelligent-organization-product:${IMAGE_TAG:-local}
+    profiles:
+      - maintenance
+    entrypoint: ["node"]
+    volumes:
+      - product-data:/var/lib/org-intelligence
+      - type: bind
+        source: ${BACKUP_DIR:?Set BACKUP_DIR to an existing protected host directory}
+        target: /var/backups/org-intelligence
+        bind:
+          create_host_path: false
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+
+volumes:
+  product-data:
+
+secrets:
+  oidc-client-secret:
+    file: ${OIDC_CLIENT_SECRET_FILE:?Set OIDC_CLIENT_SECRET_FILE to the protected OIDC secret file}
+  model-api-key:
+    file: ${MODEL_API_KEY_FILE:?Set MODEL_API_KEY_FILE to the protected model key file}

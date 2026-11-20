@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>第一次团队试用准备卡 · 组织智能工作台</title>
+  <meta name="description" content="帮助团队选定第一类重复问题，确认处理标准和数据边界，并记录后续复用情况。" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/first-session.css" />
+</head>
+<body>
+  <main class="main first-session-page">
+    <header class="page-head">
+      <div>
+        <p class="page-context">团队协作使用指南</p>
+        <h1>第一次团队试用准备卡</h1>
+        <p class="lead">不用先懂 AI，也不用先找一份制度文件。和同事一起把下面几件事说清，就能知道第一轮应该怎么开始。</p>
+      </div>
+      <div class="first-session-actions"><a class="btn" href="/">返回工作台</a></div>
+    </header>
+
+    <div class="notice first-session-boundary">
+      <div><strong>先分清两件事。</strong>团队要分别确认真实工单能否保存在工作区，以及必要内容能否发给所选模型。后者还需要按团队规则完成脱敏。这张卡不是公司政策、法律意见或模型数据授权；未确认本地存储规则前，不要录入真实工单。需要熟悉界面时，使用与正式团队数据隔离的虚构预览环境。</div>
+    </div>
+
+    <section class="section">
+      <article class="panel">
+        <div class="panel-body">
+          <h2>1. 选一个经常重复的问题</h2>
+          <p>选一种最近反复出现、处理步骤相对稳定、团队愿意先观察的问题。</p>
+          <div class="worksheet-lines">
+            <div><strong>问题类型：</strong><span></span></div>
+            <div><strong>哪些情况不属于这类问题？</strong><span></span></div>
+            <div><strong>不确定时交给谁处理？</strong><span></span></div>
+          </div>
+          <p class="small muted">打印机、账号权限、常用软件等只是选题示例。请按团队自己的数据规则判断，示例不代表真实信息可以发给模型。</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="panel">
+        <div class="panel-body">
+          <h2>2. 说清楚什么算“解决”</h2>
+          <p>尽量写成能观察到的结果，而不是“AI 答得不错”或“感觉快了”。</p>
+          <div class="worksheet-lines">
+            <div><strong>任务完成后，实际发生什么？</strong><span></span></div>
+            <div><strong>检查哪些结果才算完成？</strong><span></span></div>
+            <div><strong>什么情况要重开或升级？</strong><span></span></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="panel">
+        <div class="panel-body">
+          <h2>3. 分清 AI 和人的责任</h2>
+          <div class="worksheet-lines">
+            <div><strong>AI 可以帮忙做什么？</strong><span></span></div>
+            <div><strong>哪些事实和判断必须由成员核实？</strong><span></span></div>
+            <div><strong>哪些动作必须等人确认后才执行？</strong><span></span></div>
+          </div>
+          <p class="small muted">AI 给出建议和依据；成员负责核对、修改或拒绝，并记录实际采取的步骤与结果。</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="panel">
+        <div class="panel-body">
+          <h2>4. 由团队负责人确认数据规则</h2>
+          <div class="worksheet-lines">
+            <div><strong>谁确认本轮信息可以发给所选模型？</strong><span></span></div>
+            <div><strong>哪些信息不能录入或发送？</strong><span></span></div>
+            <div><strong>需要去掉或替换哪些敏感信息？</strong><span></span></div>
+            <div><strong>谁可以看记录，计划保留多久？</strong><span></span></div>
+          </div>
+          <p class="small muted">例如密码、访问令牌和客户身份信息需要特别谨慎。工单可保存在工作区，不代表可以发给模型；负责人确认模型发送后，由管理员在工单详情单独登记，撤销登记会阻止后续模型调用。姓名只是手工记录，系统不会自动判断授权真假、脱敏是否充分或保留期限是否合规。不清楚时先停在准备阶段。</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="panel">
+        <div class="panel-body">
+          <h2>5. 用两件相似任务看闭环有没有跑通</h2>
+          <p>第一件任务记录实际结果；值得复用的经验由另一位成员审核后发布。第二件相似任务由另一位成员处理，观察经验是否被找到、引用，以及是否真的改变了处理过程。</p>
+          <div class="table-wrap">
+            <table class="first-session-table">
+              <thead><tr><th>观察项</th><th>第一件任务</th><th>第二件任务</th></tr></thead>
+              <tbody>
+                <tr><th>是否解决，依据是什么</th><td></td><td></td></tr>
+                <tr><th>AI 建议采纳、修改还是拒绝？为什么？</th><td></td><td></td></tr>
+                <tr><th>是否返工、重开或升级</th><td></td><td></td></tr>
+                <tr><th>共享经验改变了哪一步？</th><td></td><td></td></tr>
+                <tr><th>还需要调整什么</th><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small muted">两件任务只能检查流程是否跑通，不能证明质量或效率提高。真实效果要看连续任务，并说明样本范围和其他可能原因。</p>
+        </div>
+      </article>
+    </section>
+
+    <p class="first-session-footer"><a href="/">返回工作台</a> · 可用浏览器的打印功能打印本页。本页没有表单，不会收集或保存你们写下的内容。</p>
+  </main>
+</body>
+</html>

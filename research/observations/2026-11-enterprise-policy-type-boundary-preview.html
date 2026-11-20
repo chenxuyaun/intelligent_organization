@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>知识类型边界反测 · K3 v3</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; color: #192630; background: #f3f5f7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 28px 16px; }
+    main { max-width: 920px; margin: 0 auto; }
+    header, section { background: #fff; border: 1px solid #d7dde3; border-radius: 12px; margin-bottom: 16px; padding: 22px; }
+    h1 { margin: 0 0 8px; font-size: 25px; }
+    h2 { margin: 0 0 14px; font-size: 19px; }
+    p, li { line-height: 1.7; }
+    .subtle { color: #596977; margin-top: 0; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .badge { border: 1px solid #aab7c3; border-radius: 999px; padding: 4px 10px; font-size: 13px; }
+    .green { color: #145a32; border-color: #8ab99b; background: #f0f8f2; }
+    .amber { color: #744b00; border-color: #d7b55e; background: #fff8e6; }
+    .result { background: #f5f9fc; border: 1px solid #b7c9d8; border-radius: 8px; padding: 14px 18px; }
+    .issue { background: #fff8e6; border-left: 4px solid #c28a00; padding: 12px 16px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid #dce2e7; padding: 10px; text-align: left; vertical-align: top; }
+    th { background: #f5f7f9; }
+    a { color: #0759a5; overflow-wrap: anywhere; }
+    footer { color: #596977; font-size: 13px; padding: 8px 4px; }
+    @media (max-width: 600px) { body { padding: 12px 8px; } header, section { padding: 16px; } table { font-size: 14px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="subtle">4186 隔离数据库只读检索 · 真实模型生成 · 纯虚构问题 · 后续 4 次 A/B 复测</p>
+      <h1>K3 v3 有没有把 classic 规则错带到 fine-grained？</h1>
+      <p>测试问题：企业 fine-grained PAT 上限 60 天、组织设 90 天；创建一张访问该组织的 fine-grained PAT 时，90 天能否生效？classic PAT 的使用/SSO 检查时点能否直接套用？</p>
+      <div class="badges">
+        <span class="badge green">类型误迁移：未观察到</span>
+        <span class="badge green">企业 60 天优先：答对</span>
+        <span class="badge">K1 v2 + K3 v3 同时命中</span>
+        <span class="badge amber">K1 执行时点措辞需要修订</span>
+        <span class="badge green">K1 v3 候选：创建边界 2/2 清楚</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>模型实际回答</h2>
+      <div class="result">
+        <p>结论：在你描述的企业级最大期限 60 天确实适用于该组织或该 token 的前提下，不能选择 90 天，应选择不超过 60 天；组织设置的 90 天不能突破更严格的企业上限。</p>
+        <p>期限检查也不应按 classic PAT 的“使用 token 或尝试 SSO 授权时检查”来推断；fine-grained PAT 的已发布指引说明，组织或企业资源的策略可能在创建、重新生成或使用 token 时生效 [K1]，因此不能断言只在创建时检查。具体在哪个环节拦截，取决于该企业或组织当前策略。classic PAT 的相关说明仅作类型边界对照，不应直接套用到 fine-grained PAT [K3]。</p>
+      </div>
+      <p><strong>模型：</strong>deepseek-flash · support-agent-v4.0-matched · live · 23,765 ms</p>
+      <p><strong>实际引用：</strong>K1 v2、K3 v3。K3 的 classic 专属“使用/SSO 检查”没有被声称为 fine-grained 的执行时点。</p>
+    </section>
+
+    <section>
+      <h2>这次验证说明什么</h2>
+      <table>
+        <thead><tr><th>检查点</th><th>结果</th></tr></thead>
+        <tbody>
+          <tr><td>组织 90 天能否放宽企业 60 天</td><td>答复明确不能；前提限定为企业 60 天确实适用于该组织/token。</td></tr>
+          <tr><td>classic 的使用/SSO 时点是否被错套</td><td>没有；明确说不能直接套用。</td></tr>
+          <tr><td>K1 对 fine-grained 检查时点是否足够精确</td><td>不够。K1 v2 把创建、重新生成、使用并列写成可能时点；模型重复了这句，无法给出清晰的类型规则。</td></tr>
+          <tr><td>数据是否被改写</td><td>没有。SQLite 只读连接；工单 10、运行 14、审核 4、卡片 4、知识使用 20，前后相同。</td></tr>
+        </tbody>
+      </table>
+      <p class="issue"><strong>发现的下一处改进：</strong>准备了 K1 v3 候选，精确区分新 fine-grained PAT 创建时的期限上限校验、策略变化后既有 token 的组织访问拦截，以及 classic PAT 的使用/SSO 检查时点。候选尚未写入 4186、尚未发布。</p>
+    </section>
+
+    <section>
+      <h2>K1 v2 与修订候选的 A/B 对照</h2>
+      <p>同一道问题、同一模型、同一检索结果和 K3 v3，只在内存中替换 K1 片段。每种条件各跑两次；K1 v3 候选没有写入数据库。</p>
+      <table>
+        <thead><tr><th>观察点</th><th>K1 v2 · 两次</th><th>K1 v3 候选 · 两次</th></tr></thead>
+        <tbody>
+          <tr><td>企业 60 天是否高于组织 90 天</td><td>1 次明确给结论；1 次保守地要求核实</td><td>2 次都说明 90 天不能突破 60 天上限</td></tr>
+          <tr><td>fine-grained 创建时的期限边界</td><td>0/2 清楚；两次都沿用“创建、重新生成或使用时都可能”</td><td>2/2 说明创建期限须符合目标组织/企业上限</td></tr>
+          <tr><td>classic 使用/SSO 检查规则</td><td>2/2 没有直接套用，但解释含混</td><td>2/2 明确这是 classic 专属检查说明</td></tr>
+          <tr><td>引用与数据写入</td><td colspan="2">候选版均 live；引用 K1；数据库数量前后不变：工单 10、运行 14、审核 4、卡片 4、知识使用 20</td></tr>
+        </tbody>
+      </table>
+      <p>四次调用都成功。K1 v2 时延 42,174 / 28,145 ms；候选时延 14,159 / 20,247 ms。样本很小，不据此声称候选更快。修订改善的是这道题对规则边界的表达。</p>
+      <p class="issue"><strong>状态：</strong>K1 v3 候选已在内存对照中表现更清晰，但尚未写入 4186，也未发布；需要审核者核对后再决定。</p>
+    </section>
+
+    <section>
+      <h2>换一组新数字：企业 45 天、组织 120 天</h2>
+      <p>候选卡正文举的是 60/90 天。为检查模型能否迁移一般规则，再用没写在卡片示例里的 45/120 天重测，每种条件仍跑两次。</p>
+      <table>
+        <thead><tr><th>条件</th><th>观察结果</th></tr></thead>
+        <tbody>
+          <tr><td>K1 v2 · 两次</td><td>一次推得企业 45 天更严格，但因层级依据来自 classic 卡而要求核实 fine-grained；另一次说明现有资料不足，需要核实 45/120 配置。</td></tr>
+          <tr><td>K1 v3 候选 · 两次</td><td>两次都说明组织 120 天不能放宽企业 45 天，fine-grained PAT 创建期限应不超过 45 天；都引用 K1。</td></tr>
+          <tr><td>数据与时延</td><td>四次均 live。基线 35,787 / 27,569 ms，候选 35,228 / 22,806 ms；不据小样本推断速度变化。数据库数量未变。</td></tr>
+        </tbody>
+      </table>
+      <p class="issue"><strong>这次更接近迁移验证：</strong>模型把企业/组织层级规则应用到新的数值，而不是照抄卡片里的 60/90 示例。K1 候选仍未发布。</p>
+      <p><a href="2026-11-k1-v3-number-transfer-result.json">查看机器记录</a></p>
+    </section>
+
+    <section>
+      <h2>真实应用链路：问题 #11 先遇到的是召回缺口</h2>
+      <p>在 4186 临时 UI 副本里实际创建并运行了 #11（企业 45 天、组织 120 天）。当前 K1 v2 的组织模式检索只返回 K3、C9、K2、C7，<strong>没有检索到 K1</strong>；所以模型只能说明 fine-grained 的层级依据不足、需要核实。</p>
+      <p><a href="http://127.0.0.1:4186/#/t/11">在应用中查看 #11 当前基线结果</a></p>
+      <p>再用同一问题、同一生产检索和模型，在一次性 SQLite 副本里替换为 K1 v3 候选：K1 排名第一（score 96.68），模型 live 回答 34,833 ms，引用 K1/K3，给出明确判断：</p>
+      <div class="result">
+        <p><strong>答复核心：</strong>组织的 120 天不能放宽企业上限，创建 fine-grained PAT 时应选不超过 45 天的期限；classic PAT 的使用/SSO 检查时点不能套给 fine-grained PAT。</p>
+        <p>答复仍提示 45/120 是题设值，需要核实实际策略。</p>
+      </div>
+      <p class="issue"><strong>实际差异：</strong>候选 K1 不只是让句子更准确，它还让真实工单文本能召回相关知识。候选只存在一次性副本，未写回正在运行的 UI 样本库，也没有发布或审核记录。</p>
+      <p>源 UI 副本在候选试验前后保持 11 工单、16 运行、4 审核、4 卡、22 知识使用；完整性检查 `ok`。</p>
+    </section>
+
+    <section>
+      <h2>待审核材料与来源</h2>
+      <p><a href="../drafts/K1-fine-grained-PAT-enterprise-policy-boundary.md">查看 K1 v3 完整修订候选</a></p>
+      <ul>
+        <li><a href="https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-personal-access-tokens-in-your-enterprise">Enterprise Cloud 企业 PAT 政策：60 天企业上限、fine-grained 与 classic 执行差异</a></li>
+        <li><a href="https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization">Enterprise Cloud 组织 PAT 政策：组织上限不能越过企业上限</a></li>
+        <li><a href="https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">Enterprise Cloud 管理 PAT：创建 fine-grained PAT 与目标组织选择</a></li>
+      </ul>
+    </section>
+
+    <footer>这是一次小样本、公开规则、虚构问题的边界验证。它不代表公司内部制度，也不证明总体准确率或真实组织收益。数据库中的 K1 v2、K3 v3 都仍是 sample；K3 未获准进入真实试点。</footer>
+  </main>
+</body>
+</html>

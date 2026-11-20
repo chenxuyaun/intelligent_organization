@@ -1,0 +1,252 @@
+{
+  "experiment": "Case C12 ablation on the exact synthetic ticket #13 question",
+  "createdAt": "2026-11-19T02:30:30.379Z",
+  "storage": "GET-only app read + in-memory createRun stub; no application-data writes",
+  "model": "deepseek-flash",
+  "promptVersion": "support-agent-v4.0-matched",
+  "sourceTicket": {
+    "id": 13,
+    "status": "open",
+    "scope": "sample"
+  },
+  "sourceRun": {
+    "id": 20,
+    "runGroup": "gmwma8bzhi0s4",
+    "retrievedRefs": [
+      "C12",
+      "K3",
+      "K2",
+      "C9"
+    ]
+  },
+  "controls": "Same ticket text, live model, prompt version and K3/K2/C9 sources; C12 is the only changed source. Up to four attempts per condition; invalid model responses are retained but excluded from effect comparison.",
+  "results": [
+    {
+      "condition": "with_C12_1",
+      "origin": "live",
+      "model": "deepseek-flash",
+      "latencyMs": 33472,
+      "retrievedRefs": [
+        "C12",
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [
+        "K3",
+        "K2"
+      ],
+      "reply": "按公开规则，组织级 classic PAT 最大期限不能越过企业级上限；在该组织受该企业策略管理时，企业级 30 天是更严格的上限，60 天的 classic PAT 会被阻止访问该组织[K3]。个人仓库仍可访问而组织请求被拒，并不等于 token 已被撤销或停用；设置策略本身不会撤销或停用 token[K3][K2]。企业级策略下，期限会在使用 token 或尝试 SSO 授权时检查，错误会提示用户调整期限[K3]。请在工单中只补充非识别性状态，不要粘贴 token 明文、token 名称/ID、scope 清单或截图。",
+      "uncertainties": [
+        "该组织是否确实受该 GitHub Enterprise Cloud 企业策略管理，以及企业级/组织级当前最大期限配置，上下文中未给出现实组织状态，需管理员核实。",
+        "组织 API 被拒的具体错误是否明确指向 token 生命周期/策略不符，未提供错误文本，需只读核实。",
+        "该 classic PAT 当前是否仍有效/未撤销及最近使用时间未提供，需非识别性核实。",
+        "以上为 GitHub 公开规则与模拟样本，不代表本公司内部制度；若涉及内部审批或处理流程需另行人工核实。"
+      ],
+      "modelHttp": {
+        "status": 200,
+        "ok": true,
+        "model": "deepseek-flash",
+        "choiceCount": 1,
+        "finishReason": "stop",
+        "messageKeys": [
+          "role",
+          "content",
+          "reasoning_content"
+        ],
+        "contentType": "string",
+        "contentLength": 1874
+      }
+    },
+    {
+      "condition": "without_C12_1",
+      "origin": "fallback",
+      "model": "fallback:support-agent-v4.0-matched",
+      "latencyMs": 45005,
+      "retrievedRefs": [
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [],
+      "reply": "本次真实模型请求未能返回有效答复，没有生成可供采纳或对外发送的处理建议。请稍后重试；下方引用来源仅供人工核对。",
+      "uncertainties": [
+        "真实模型请求未成功；本次没有可用建议。"
+      ],
+      "modelHttp": {
+        "status": 200,
+        "ok": true,
+        "invalidEnvelope": true
+      }
+    },
+    {
+      "condition": "without_C12_2",
+      "origin": "live",
+      "model": "deepseek-flash",
+      "latencyMs": 24462,
+      "retrievedRefs": [
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [
+        "K3",
+        "K2"
+      ],
+      "reply": "在你描述的场景中，应适用企业级的 30 天上限：组织 owner 可以为 classic PAT 设置最大有效期，但不能越过企业级上限；因此 60 天的 classic PAT 即使能访问个人仓库，也会因超过企业/组织上限而被阻止访问该组织 [K3]。访问该组织私有仓库/API 被拒不能证明 token 已被撤销或停用；策略触发的是对组织的访问阻止，设置策略本身不会撤销或停用 token [K3][K2]。",
+      "uncertainties": [
+        "目标组织是否实际受该企业策略管理，以及企业/组织当前策略值，问题描述未提供可核实的管理员确认。",
+        "具体拒绝错误内容或状态未提供，无法确认拒绝是否由 PAT 生命周期策略而非其他权限或 SSO 问题触发。",
+        "token 的类型、所有者/成员关系与 60 天到期日目前仅为问题描述，尚未由管理员只读核实。"
+      ],
+      "modelHttp": {
+        "status": 200,
+        "ok": true,
+        "model": "deepseek-flash",
+        "choiceCount": 1,
+        "finishReason": "stop",
+        "messageKeys": [
+          "role",
+          "content",
+          "reasoning_content"
+        ],
+        "contentType": "string",
+        "contentLength": 1545
+      }
+    },
+    {
+      "condition": "with_C12_2",
+      "origin": "fallback",
+      "model": "fallback:support-agent-v4.0-matched",
+      "latencyMs": 45013,
+      "retrievedRefs": [
+        "C12",
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [],
+      "reply": "本次真实模型请求未能返回有效答复，没有生成可供采纳或对外发送的处理建议。请稍后重试；下方引用来源仅供人工核对。",
+      "uncertainties": [
+        "真实模型请求未成功；本次没有可用建议。"
+      ],
+      "modelHttp": {
+        "status": 200,
+        "ok": true,
+        "invalidEnvelope": true
+      }
+    },
+    {
+      "condition": "with_C12_3",
+      "origin": "fallback",
+      "model": "fallback:support-agent-v4.0-matched",
+      "latencyMs": 45014,
+      "retrievedRefs": [
+        "C12",
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [],
+      "reply": "本次真实模型请求未能返回有效答复，没有生成可供采纳或对外发送的处理建议。请稍后重试；下方引用来源仅供人工核对。",
+      "uncertainties": [
+        "真实模型请求未成功；本次没有可用建议。"
+      ],
+      "modelHttp": {
+        "errorName": "AbortError",
+        "error": "This operation was aborted"
+      }
+    },
+    {
+      "condition": "without_C12_3",
+      "origin": "fallback",
+      "model": "fallback:support-agent-v4.0-matched",
+      "latencyMs": 45006,
+      "retrievedRefs": [
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [],
+      "reply": "本次真实模型请求未能返回有效答复，没有生成可供采纳或对外发送的处理建议。请稍后重试；下方引用来源仅供人工核对。",
+      "uncertainties": [
+        "真实模型请求未成功；本次没有可用建议。"
+      ],
+      "modelHttp": {
+        "errorName": "AbortError",
+        "error": "This operation was aborted"
+      }
+    },
+    {
+      "condition": "with_C12_4",
+      "origin": "live",
+      "model": "deepseek-flash",
+      "latencyMs": 77362,
+      "retrievedRefs": [
+        "C12",
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [
+        "K3",
+        "K2"
+      ],
+      "reply": "按你给的规则演练场景，若该组织确实受该 GitHub Enterprise Cloud 企业策略管理，则企业级最大期限是上限，组织级 90 天不能越过企业的 30 天，因此 60 天的 classic PAT 会因超过企业上限而被阻止访问该组织 [K3]。个人仓库仍能访问、组织私有仓库/API 被拒，只能说明这张 token 对该组织的访问被期限策略拦截，并不证明 token 已被撤销或停用 [K3][K2]。具体适用策略和拒绝原因仍需管理员只读确认；请勿在工单中粘贴 token 明文。",
+      "uncertainties": [
+        "企业 30 天、组织 90 天及 token 60 天均为问题单给定演练值，未由来源核实为真实策略值；需管理员确认实际策略层级和有效上限。",
+        "未能确认该组织是否确实受企业级策略覆盖；若不受覆盖，不能直接套用企业级检查规则。",
+        "未提供组织请求被拒的非识别性错误类别，无法排除期限策略之外的其他拒绝原因。"
+      ],
+      "modelHttp": {
+        "status": 200,
+        "ok": true,
+        "model": "deepseek-flash",
+        "choiceCount": 1,
+        "finishReason": "stop",
+        "messageKeys": [
+          "role",
+          "content",
+          "reasoning_content"
+        ],
+        "contentType": "string",
+        "contentLength": 2008
+      }
+    },
+    {
+      "condition": "without_C12_4",
+      "origin": "live",
+      "model": "deepseek-flash",
+      "latencyMs": 45024,
+      "retrievedRefs": [
+        "K3",
+        "K2",
+        "C9"
+      ],
+      "citedRefs": [
+        "K3",
+        "K2"
+      ],
+      "reply": "按公开规则，组织 owner 可以设置 classic PAT 最大有效期，但不能越过企业级上限；本例中企业级 30 天优先于组织级 90 天，60 天 token 超过企业上限，因此访问该组织私有仓库/API 会被阻止，而访问个人仓库成功并不矛盾 [K3][K2]。组织访问被拒不能证明 token 已被撤销：策略只会阻止该 token 访问该组织，设置策略本身不会撤销或停用 token [K3][K2]。企业级策略会在使用 token 或尝试 SSO 授权时检查，并可能提示调整期限；具体错误提示和恢复步骤以管理员按现行策略核实为准 [K3]。请不要在工单中粘贴 token 明文。",
+      "uncertainties": [
+        "描述未给出组织 API 被拒的具体错误文本，无法确认错误是否明确指向企业级期限超限。",
+        "该组织是否确实受企业级策略管理、企业级策略当前是否生效及组织策略层级，需要管理员只读核实。",
+        "token 是否仍出现在个人 token 列表、最近使用时间等只读状态未提供，因此不能用个人仓库访问成功推断所有访问状态。"
+      ],
+      "modelHttp": {
+        "status": 200,
+        "ok": true,
+        "model": "deepseek-flash",
+        "choiceCount": 1,
+        "finishReason": "stop",
+        "messageKeys": [
+          "role",
+          "content",
+          "reasoning_content"
+        ],
+        "contentType": "string",
+        "contentLength": 1822
+      }
+    }
+  ]
+}

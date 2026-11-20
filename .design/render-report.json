@@ -1,0 +1,84 @@
+[
+  {
+    "page": "home",
+    "url": "http://127.0.0.1:4173/#/",
+    "margins": {
+      "left": 0,
+      "right": 0
+    },
+    "blankGaps": [
+      158
+    ],
+    "emptyScreens": 0,
+    "headlineLines": 1,
+    "untitledSections": 0,
+    "lopsided": 0,
+    "firstScreenCoverage": 100,
+    "docWidth": 1414,
+    "viewport": 1414,
+    "horizontalOverflow": 0,
+    "overflowNodes": 0,
+    "sectionCount": 3,
+    "shot": ".design\\shot-home.png"
+  },
+  {
+    "page": "ticket",
+    "url": "http://127.0.0.1:4173/#/t/5",
+    "margins": {
+      "left": 0,
+      "right": 0
+    },
+    "blankGaps": [],
+    "emptyScreens": 0,
+    "headlineLines": null,
+    "untitledSections": 0,
+    "lopsided": 0,
+    "firstScreenCoverage": 100,
+    "docWidth": 1414,
+    "viewport": 1414,
+    "horizontalOverflow": 0,
+    "overflowNodes": 0,
+    "sectionCount": 0,
+    "shot": ".design\\shot-ticket.png"
+  },
+  {
+    "page": "memory",
+    "url": "http://127.0.0.1:4173/#/memory",
+    "margins": {
+      "left": 0,
+      "right": 0
+    },
+    "blankGaps": [],
+    "emptyScreens": 0,
+    "headlineLines": 1,
+    "untitledSections": 1,
+    "lopsided": 0,
+    "firstScreenCoverage": 100,
+    "docWidth": 1414,
+    "viewport": 1414,
+    "horizontalOverflow": 0,
+    "overflowNodes": 0,
+    "sectionCount": 3,
+    "shot": ".design\\shot-memory.png"
+  },
+  {
+    "page": "settings",
+    "url": "http://127.0.0.1:4173/#/settings",
+    "margins": {
+      "left": 0,
+      "right": 0
+    },
+    "blankGaps": [],
+    "emptyScreens": 0,
+    "headlineLines": 1,
+    "untitledSections": 0,
+    "lopsided": 0,
+    "firstScreenCoverage": 100,
+    "docWidth": 1414,
+    "viewport": 1414,
+    "horizontalOverflow": 0,
+    "overflowNodes": 0,
+    "sectionCount": 4,
+    "shot": ".design\\shot-settings.png"
+  }
+]

@@ -1,0 +1,119 @@
+{
+  "experiment": "Actual UI ticket #11: current K1 v2 retrieval vs unpublished K1 v3 candidate in disposable DB copy",
+  "sourceDb": "C:\\Users\\yuesh\\AppData\\Local\\Temp\\io-visible-k1-review-Rpf2nx\\app.db",
+  "candidateDb": "C:\\Users\\yuesh\\AppData\\Local\\Temp\\io-k1-actual-query-y1DFRY\\app.db",
+  "ticket": {
+    "id": 11,
+    "title": "fine-grained PAT 过期规则：企业 45 天、组织 120 天，应该选多久？",
+    "category": "账号与权限",
+    "status": "open",
+    "scope": "sample"
+  },
+  "storage": "source DB read-only; candidate DB is a disposable VACUUM INTO copy; no source run/review/card/use written",
+  "persistedRuns": [
+    {
+      "id": 16,
+      "mode": "personal",
+      "origin": "live",
+      "retrievedRefs": [],
+      "citedRefs": []
+    },
+    {
+      "id": 15,
+      "mode": "organization",
+      "origin": "live",
+      "retrievedRefs": [
+        "K3",
+        "C9",
+        "K2",
+        "C7"
+      ],
+      "citedRefs": [
+        "K3",
+        "K2"
+      ]
+    }
+  ],
+  "currentRetrieval": [
+    {
+      "ref": "K3",
+      "version": 3,
+      "score": 58.69
+    },
+    {
+      "ref": "C9",
+      "score": 43.47
+    },
+    {
+      "ref": "K2",
+      "version": 2,
+      "score": 35.96
+    },
+    {
+      "ref": "C7",
+      "score": 32.49
+    }
+  ],
+  "candidateRetrieval": [
+    {
+      "ref": "K1",
+      "version": 3,
+      "score": 96.68
+    },
+    {
+      "ref": "K3",
+      "version": 3,
+      "score": 43.34
+    },
+    {
+      "ref": "C9",
+      "score": 36.68
+    },
+    {
+      "ref": "C7",
+      "score": 27.2
+    }
+  ],
+  "candidateRun": {
+    "model": "deepseek-flash",
+    "promptVersion": "support-agent-v4.0-matched",
+    "origin": "live",
+    "latencyMs": 34833,
+    "retrievedRefs": [
+      "K1",
+      "K3",
+      "C9",
+      "C7"
+    ],
+    "citedRefs": [
+      "K1",
+      "K3"
+    ],
+    "answer": "按题设，如果企业级最大期限 45 天和组织级 120 天当前都生效，组织的 120 天不能放宽企业上限，实际可用上限应取更严格者 45 天；创建访问该组织资源的 fine-grained PAT 时应选择不超过 45 天的期限（更短可以）[K1]。原因是 fine-grained PAT 的目标组织在创建时已知，创建期限不能超过策略上限 [K1]。classic PAT 的规则不同：它默认没有强制过期要求，创建者仍可选择过期日期；企业级期限会在使用 token 或尝试 SSO 授权时检查 [K3]，组织级超限会阻止访问该组织，但设置策略本身不会撤销或停用 token [K3]；不要把 classic PAT 的使用/SSO 检查时点套到 fine-grained PAT 上。题设中的 45/120 天属于待核实策略状态，需以当前实际策略为准，不能把题设当作现网制度。",
+    "uncertainties": [
+      "题设中的企业 45 天和组织 120 天是虚构或待核实值，无法从上下文确认当前实际生效策略。"
+    ]
+  },
+  "sourceCountsBefore": {
+    "tickets": 11,
+    "runs": 16,
+    "reviews": 4,
+    "knowledge_cards": 4,
+    "knowledge_uses": 22
+  },
+  "sourceCountsAfter": {
+    "tickets": 11,
+    "runs": 16,
+    "reviews": 4,
+    "knowledge_cards": 4,
+    "knowledge_uses": 22
+  },
+  "candidateCountsAfterRun": {
+    "tickets": 11,
+    "runs": 16,
+    "reviews": 4,
+    "knowledge_cards": 4,
+    "knowledge_uses": 22
+  },
+  "sourceUnchanged": true
+}

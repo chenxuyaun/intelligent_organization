@@ -1,0 +1,6 @@
+node_modules/
+data/
+.design/tmp-*
+*.log
+.env
+/deploy/*.env

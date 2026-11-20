@@ -1,0 +1,26 @@
+{
+  "name": "org-intelligence-bench",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "组织智能工作台 · 本地研究模式与单团队产品模式",
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "scripts": {
+    "start": "node --no-warnings server/index.js",
+    "dev": "node --no-warnings --watch server/index.js",
+    "reset": "node --no-warnings server/reset.js",
+    "smoke": "node --no-warnings scripts/smoke.js"
+  },
+  "dependencies": {
+    "openid-client": "6.9.0",
+    "remixicon": "4.6.0"
+  },
+  "browserslist": [
+    "chrome >= 100",
+    "edge >= 100",
+    "firefox >= 100",
+    "safari >= 15"
+  ]
+}
